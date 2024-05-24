@@ -10,6 +10,13 @@ const Footer = () => {
              <h2>Contact us</h2>
              <div className="line"></div>
            </div>
+           <div className="inputs-box">
+            <input type="text" placeholder="Name" />
+            <input type="text"placeholder="Email" />
+           </div>
+           <div className="text-box">
+            <textarea name="" id=""></textarea>
+           </div>
         </div>
       </div>
     </div>
