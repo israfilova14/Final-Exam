@@ -1,0 +1,19 @@
+.services-box{
+    height: 600px;
+    .services-box-top{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: baseline;
+        .title-box{
+            display: flex;
+            align-items: center;
+            justify-content: baseline;
+            .line{
+                height: 2px;
+                width: 300px;
+                background-color: rgb(255, 197, 21)
+            }
+        }
+    }
+}

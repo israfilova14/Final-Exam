@@ -1,0 +1,41 @@
+header{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .logo{
+        flex: 0.2;
+        span{
+            color: rgb(255, 197, 21)
+        }
+    }
+    .links{
+        flex: 0.5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        nav{
+            ul{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                li{
+                    list-style: none;
+                }
+                li:hover{
+                    color: rgb(255, 197, 21)
+                }
+            }
+        }
+    }
+    .reservations{
+        flex: 0.3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        .reservations{
+            color:rgb(255, 197, 21)
+        }
+    }
+}
