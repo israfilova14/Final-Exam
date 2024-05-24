@@ -9,9 +9,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper'
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllProducts } from '../../../assets/redux/features/food/foodSlice';
- 
+ import axios from "axios"
 const Post = () => {
   const {food} = useSelector(store => store.food)
   console.log(food);
@@ -19,13 +19,43 @@ const Post = () => {
   useEffect(() => {
     dispatch(getAllProducts())
   },[])
+  const [image, setImage] = useState('')
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const deleteTableRow = async(id) => {
+    try{
+      await axios.delete(`http://localhost:5007/foods/${id}`)
+      .then(
+        res => {
+          console.log(res);
+          if(res.status ===200){
+            food.filter(item => item._id !==id)
+          }
+        }
+      )
+    }catch(err){
+      console.log(err);
+    }
+  }
+  const addProducts = async(e) => {
+    e.preventDefault()
+    try{
+      await axios.post("http://localhost:5007/foods", {
+         image: image,
+         title: title,
+         description: description
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
   return (
     <div className="post-box">
       <div className="form-container">
-         <form action="">
-         <TextField id="outlined-basic-1" label="Enter Image URL" variant="outlined" />
-         <TextField id="outlined-basic-2" label="Enter product title" variant="outlined" />
-         <TextField id="outlined-basic-3" label="Enter product description" variant="outlined" />
+         <form action="" onSubmit={addProducts}>
+         <TextField id="outlined-basic-1" label="Enter Image URL" variant="outlined" value={image} onChange={e => setImage(e.target.value)}/>
+         <TextField id="outlined-basic-2" label="Enter product title" variant="outlined" value={title} onChange={e => setTitle(e.target.value)} />
+         <TextField id="outlined-basic-3" label="Enter product description" variant="outlined" value={description} onChange={e => setDescription(e.target.value)} />
          <Button variant="outlined" type='submit'>Outlined</Button>
          </form>
       </div>
@@ -51,7 +81,7 @@ const Post = () => {
               </TableCell>
               <TableCell>{row.title}</TableCell>
               <TableCell>{row.description}</TableCell>
-              <TableCell><Button variant="outlined" color="error">Delete</Button></TableCell>
+              <TableCell><Button variant="outlined" color="error" type='submit' onClick={() => {deleteTableRow(row._id)}}> Delete</Button></TableCell>
             </TableRow>
           ))}
         </TableBody>
